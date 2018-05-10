@@ -1,6 +1,7 @@
 package com.github.onlynight.rxmvvm;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Action;
@@ -35,11 +36,11 @@ public abstract class BaseViewModel<View extends IView, Model extends IModel>
         this.model = model;
     }
 
-    protected <T> void bindData(Flowable<T> subject, Consumer<? super T> onNext) {
-        bindData(subject, onNext, this::onError);
+    protected void onError(Throwable throwable) {
     }
 
-    protected void onError(Throwable throwable) {
+    protected <T> void bindData(Flowable<T> subject, Consumer<? super T> onNext) {
+        bindData(subject, onNext, this::onError);
     }
 
     protected <T> void bindData(Flowable<T> subject, Consumer<? super T> onNext, Consumer<? super Throwable> onError) {
@@ -47,6 +48,21 @@ public abstract class BaseViewModel<View extends IView, Model extends IModel>
     }
 
     protected <T> void bindData(Flowable<T> subject, Consumer<? super T> onNext, Consumer<? super Throwable> onError, Action onComplete) {
+        compositeDisposable.add(subject.
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(onNext, onError, onComplete));
+    }
+
+    protected <T> void bindData(Observable<T> subject, Consumer<? super T> onNext) {
+        bindData(subject, onNext, this::onError);
+    }
+
+    protected <T> void bindData(Observable<T> subject, Consumer<? super T> onNext, Consumer<? super Throwable> onError) {
+        bindData(subject, onNext, onError, Functions.EMPTY_ACTION);
+    }
+
+    protected <T> void bindData(Observable<T> subject, Consumer<? super T> onNext, Consumer<? super Throwable> onError, Action onComplete) {
         compositeDisposable.add(subject.
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).

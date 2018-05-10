@@ -26,4 +26,5 @@ public class MainViewModel extends BaseViewModel<MainContract.View, MainContract
     public void getWebsiteInfo() {
         bindData(model.getWebsiteInfo(), view::updateWebsiteInfo);
     }
+
 }
