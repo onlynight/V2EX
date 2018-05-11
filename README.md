@@ -5,4 +5,4 @@ V2EX unofficial android client, use the ```RxAndroid``` and ```retrofit``` and `
 
 # Preview
 
-![home preview](./images/img_home.png)
+![home preview](./images/img_home.jpg)
