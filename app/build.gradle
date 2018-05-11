@@ -58,4 +58,8 @@ dependencies {
     // https://github.com/orhanobut/logger
     implementation 'com.orhanobut:logger:2.2.0'
     implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
+
+    // shaped image
+    implementation 'cn.gavinliu.android.lib:ShapedImageView:0.8.5'
 }

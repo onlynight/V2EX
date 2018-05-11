@@ -7,8 +7,7 @@ import com.github.onlynight.v2ex.R;
 import com.github.onlynight.v2ex.base.BaseFragment;
 import com.github.onlynight.v2ex.databinding.FragmentTopicListBinding;
 import com.github.onlynight.v2ex.model.TopicResponse;
-import com.github.onlynight.v2ex.module.topic_list.adapter.TopicAdapter;
-import com.github.onlynight.v2ex.utils.LogUtils;
+import com.github.onlynight.v2ex.module.topic_list.adapter.TopicListAdapter;
 
 import java.util.List;
 
@@ -16,11 +15,11 @@ public class BaseTopicListFragment extends BaseFragment<FragmentTopicListBinding
         TopicListContract.View,
         SwipeRefreshLayout.OnRefreshListener {
 
-    protected TopicAdapter adapter;
+    protected TopicListAdapter adapter;
 
     @Override
     protected void onBind(FragmentTopicListBinding viewDataBinding) {
-        adapter = new TopicAdapter();
+        adapter = new TopicListAdapter();
         viewDataBinding.recyclerView.setAdapter(adapter);
         viewDataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         viewDataBinding.recyclerView.setOnRefreshListener(this);

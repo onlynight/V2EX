@@ -5,29 +5,28 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         android:orientation="vertical"
         tools:context=".module.main.MainActivity">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_launcher_background"
+            android:background="@color/colorWhite"
             android:orientation="vertical">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="24dp" />
-
-            <include layout="@layout/part_toolbar" />
+            <include
+                layout="@layout/part_toolbar"
+                android:visibility="gone" />
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabIndicatorColor="@color/colorWhite"
+                app:tabIndicatorColor="@color/colorBlack"
                 app:tabIndicatorHeight="2dp"
-                app:tabSelectedTextColor="@color/colorWhite"
-                app:tabTextColor="@color/colorWhite" />
+                app:tabSelectedTextColor="@color/colorBlack"
+                app:tabTextColor="@color/colorGray" />
 
         </android.support.design.widget.AppBarLayout>
 

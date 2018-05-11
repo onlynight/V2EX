@@ -1,7 +1,6 @@
 package com.github.onlynight.v2ex.module.main;
 
 import com.github.onlynight.rxmvvm.BaseViewModel;
-import com.github.onlynight.v2ex.utils.LogUtils;
 
 public class MainViewModel extends BaseViewModel<MainContract.View, MainContract.Model>
         implements MainContract.ViewModel {
@@ -18,8 +17,6 @@ public class MainViewModel extends BaseViewModel<MainContract.View, MainContract
     @Override
     public void getAllNode() {
         bindData(model.getAllNode(), responses -> {
-            LogUtils.d(responses);
-            LogUtils.d(responses.size());
         });
     }
 

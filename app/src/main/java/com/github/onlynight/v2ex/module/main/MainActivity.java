@@ -12,7 +12,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     protected void onBind(ActivityMainBinding viewDataBinding) {
-        translucentTitleBar();
+//        translucentTitleBar();
         viewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
         viewDataBinding.viewPager.setAdapter(viewPagerAdapter);
         viewDataBinding.viewPager.setOffscreenPageLimit(3);

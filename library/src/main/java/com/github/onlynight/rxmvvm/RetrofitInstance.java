@@ -1,5 +1,6 @@
 package com.github.onlynight.rxmvvm;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 
 public class RetrofitInstance {
@@ -20,7 +21,10 @@ public class RetrofitInstance {
     public RetrofitInstance config(RetrofitConfig config) {
         this.config = config;
         checkConfig();
-        Retrofit.Builder builder = new Retrofit.Builder();
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .client(new OkHttpClient.Builder()
+                        .addInterceptor(new OkHttpInterceptor())
+                        .build());
         config.config(builder);
         retrofit = builder.build();
         return this;

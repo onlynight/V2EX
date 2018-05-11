@@ -11,11 +11,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.TranslucentNav.LightStatusBar">
         <activity
             android:name=".module.main.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Translucent"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".module.welcome.WelcomeActivity"
             android:screenOrientation="portrait"
