@@ -19,6 +19,7 @@ public class MainViewModel extends BaseViewModel<MainContract.View, MainContract
     public void getAllNode() {
         bindData(model.getAllNode(), responses -> {
             LogUtils.d(responses);
+            LogUtils.d(responses.size());
         });
     }
 

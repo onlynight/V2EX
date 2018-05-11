@@ -57,4 +57,5 @@ dependencies {
     // logger
     // https://github.com/orhanobut/logger
     implementation 'com.orhanobut:logger:2.2.0'
+    implementation 'com.android.support:design:27.1.1'
 }

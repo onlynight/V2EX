@@ -14,7 +14,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".module.main.MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Translucent"></activity>
         <activity
             android:name=".module.welcome.WelcomeActivity"
             android:screenOrientation="portrait"

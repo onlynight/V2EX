@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.github.onlynight.rxmvvm.IView;
 import com.github.onlynight.rxmvvm.IViewModel;
@@ -29,6 +30,11 @@ public abstract class BaseMvvmFragment<ViewModel extends IViewModel> extends Fra
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewModel.onCreateView();
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
