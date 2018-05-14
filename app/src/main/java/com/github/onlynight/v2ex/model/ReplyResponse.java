@@ -1,12 +1,17 @@
 package com.github.onlynight.v2ex.model;
 
-public class ReplyResponse extends BaseResponse {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.github.onlynight.v2ex.constants.Constants;
+
+public class ReplyResponse extends BaseResponse implements Parcelable {
     /**
      * id : 1
      * thanks : 5
      * content : 很高兴看到 v2ex 又回来了，等了你半天发第一贴了，憋死我了。
-
-     nice work~
+     * <p>
+     * nice work~
      * content_rendered : 很高兴看到 v2ex 又回来了，等了你半天发第一贴了，憋死我了。<br /><br />nice work~
      * member : {"id":4,"username":"Jay","tagline":"","avatar_mini":"//cdn.v2ex.com/avatar/a87f/f679/4_mini.png?m=1325831331","avatar_normal":"//cdn.v2ex.com/avatar/a87f/f679/4_normal.png?m=1325831331","avatar_large":"//cdn.v2ex.com/avatar/a87f/f679/4_large.png?m=1325831331"}
      * created : 1272207477
@@ -20,6 +25,30 @@ public class ReplyResponse extends BaseResponse {
     private MemberBean member;
     private int created;
     private int last_modified;
+
+    public ReplyResponse() {
+    }
+
+    protected ReplyResponse(Parcel in) {
+        id = in.readInt();
+        thanks = in.readInt();
+        content = in.readString();
+        content_rendered = in.readString();
+        created = in.readInt();
+        last_modified = in.readInt();
+    }
+
+    public static final Creator<ReplyResponse> CREATOR = new Creator<ReplyResponse>() {
+        @Override
+        public ReplyResponse createFromParcel(Parcel in) {
+            return new ReplyResponse(in);
+        }
+
+        @Override
+        public ReplyResponse[] newArray(int size) {
+            return new ReplyResponse[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -77,6 +106,21 @@ public class ReplyResponse extends BaseResponse {
         this.last_modified = last_modified;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeInt(thanks);
+        dest.writeString(content);
+        dest.writeString(content_rendered);
+        dest.writeInt(created);
+        dest.writeInt(last_modified);
+    }
+
     public static class MemberBean {
         /**
          * id : 4
@@ -119,6 +163,9 @@ public class ReplyResponse extends BaseResponse {
         }
 
         public String getAvatar_mini() {
+            if (Constants.NEED_HTTP_PROTOCOl) {
+                return Constants.HTTP_HEADER + avatar_mini;
+            }
             return avatar_mini;
         }
 
@@ -127,6 +174,9 @@ public class ReplyResponse extends BaseResponse {
         }
 
         public String getAvatar_normal() {
+            if (Constants.NEED_HTTP_PROTOCOl) {
+                return Constants.HTTP_HEADER + avatar_normal;
+            }
             return avatar_normal;
         }
 
@@ -135,6 +185,9 @@ public class ReplyResponse extends BaseResponse {
         }
 
         public String getAvatar_large() {
+            if (Constants.NEED_HTTP_PROTOCOl) {
+                return Constants.HTTP_HEADER + avatar_large;
+            }
             return avatar_large;
         }
 

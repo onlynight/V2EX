@@ -1,5 +1,7 @@
 package com.github.onlynight.rxmvvm;
 
+import android.content.Intent;
+
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -15,6 +17,7 @@ public abstract class BaseViewModel<Model extends IModel>
 
     protected Model model;
     protected CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private Intent intent;
 
     public BaseViewModel() {
         this.model = createModel();
@@ -122,7 +125,10 @@ public abstract class BaseViewModel<Model extends IModel>
 
     @Override
     public void onCreateView() {
-
     }
 
+    @Override
+    public void setIntent(Intent intent) {
+        this.intent = intent;
+    }
 }

@@ -5,7 +5,17 @@
         android:id="@+id/layout_base"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         android:orientation="vertical">
+
+        <include layout="@layout/part_toolbar" />
+
+        <include layout="@layout/part_border" />
+
+        <com.github.onlynight.v2ex.view.combinerecyclerview.CombineRecyclerView
+            android:id="@+id/combine_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

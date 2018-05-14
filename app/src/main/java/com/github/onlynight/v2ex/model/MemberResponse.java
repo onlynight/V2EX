@@ -1,6 +1,9 @@
 package com.github.onlynight.v2ex.model;
 
-public class MemberResponse extends BaseResponse {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class MemberResponse extends BaseResponse implements Parcelable {
     /**
      * id : 16147
      * url : http://www.v2ex.com/member/djyde
@@ -28,6 +31,36 @@ public class MemberResponse extends BaseResponse {
     private String avatar_normal;
     private String avatar_large;
     private int created;
+
+    public MemberResponse() {
+    }
+
+    protected MemberResponse(Parcel in) {
+        id = in.readInt();
+        url = in.readString();
+        username = in.readString();
+        website = in.readString();
+        twitter = in.readString();
+        location = in.readString();
+        tagline = in.readString();
+        bio = in.readString();
+        avatar_mini = in.readString();
+        avatar_normal = in.readString();
+        avatar_large = in.readString();
+        created = in.readInt();
+    }
+
+    public static final Creator<MemberResponse> CREATOR = new Creator<MemberResponse>() {
+        @Override
+        public MemberResponse createFromParcel(Parcel in) {
+            return new MemberResponse(in);
+        }
+
+        @Override
+        public MemberResponse[] newArray(int size) {
+            return new MemberResponse[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -123,5 +156,26 @@ public class MemberResponse extends BaseResponse {
 
     public void setCreated(int created) {
         this.created = created;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(url);
+        dest.writeString(username);
+        dest.writeString(website);
+        dest.writeString(twitter);
+        dest.writeString(location);
+        dest.writeString(tagline);
+        dest.writeString(bio);
+        dest.writeString(avatar_mini);
+        dest.writeString(avatar_normal);
+        dest.writeString(avatar_large);
+        dest.writeInt(created);
     }
 }

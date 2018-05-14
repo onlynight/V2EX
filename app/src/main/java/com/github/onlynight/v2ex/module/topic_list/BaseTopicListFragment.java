@@ -15,6 +15,8 @@ import com.github.onlynight.v2ex.view.combinerecyclerview.OnItemClickListener;
 
 import java.util.List;
 
+import static com.github.onlynight.v2ex.constants.Constants.INTENT_KEY_PARAMS_TOPIC_LIST_ITEM;
+
 public class BaseTopicListFragment extends BaseFragment<FragmentTopicListBinding, TopicListViewModel> implements
         SwipeRefreshLayout.OnRefreshListener,
         OnItemClickListener<TopicResponse> {
@@ -60,6 +62,8 @@ public class BaseTopicListFragment extends BaseFragment<FragmentTopicListBinding
 
     @Override
     public void onItemClick(View view, TopicResponse data, int position) {
-        startActivity(new Intent(getContext(), TopicDetailsActivity.class));
+        Intent intent = new Intent(getContext(), TopicDetailsActivity.class);
+        intent.putExtra(INTENT_KEY_PARAMS_TOPIC_LIST_ITEM, data);
+        startActivity(intent);
     }
 }

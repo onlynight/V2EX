@@ -48,6 +48,7 @@ public abstract class BaseMvvmActivity<ViewModel extends IViewModel> extends App
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = createViewModel();
+        viewModel.setIntent(getIntent());
         viewModel.onCreate();
     }
 

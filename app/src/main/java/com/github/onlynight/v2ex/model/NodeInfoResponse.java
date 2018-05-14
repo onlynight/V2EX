@@ -1,6 +1,9 @@
 package com.github.onlynight.v2ex.model;
 
-public class NodeInfoResponse extends BaseResponse {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class NodeInfoResponse extends BaseResponse implements Parcelable {
     /**
      * id : 1
      * name : babel
@@ -30,6 +33,37 @@ public class NodeInfoResponse extends BaseResponse {
     private String avatar_mini;
     private String avatar_normal;
     private String avatar_large;
+
+    public NodeInfoResponse() {
+    }
+
+    protected NodeInfoResponse(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        url = in.readString();
+        title = in.readString();
+        title_alternative = in.readString();
+        topics = in.readInt();
+        stars = in.readInt();
+        header = in.readString();
+        footer = in.readString();
+        created = in.readInt();
+        avatar_mini = in.readString();
+        avatar_normal = in.readString();
+        avatar_large = in.readString();
+    }
+
+    public static final Creator<NodeInfoResponse> CREATOR = new Creator<NodeInfoResponse>() {
+        @Override
+        public NodeInfoResponse createFromParcel(Parcel in) {
+            return new NodeInfoResponse(in);
+        }
+
+        @Override
+        public NodeInfoResponse[] newArray(int size) {
+            return new NodeInfoResponse[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -133,5 +167,27 @@ public class NodeInfoResponse extends BaseResponse {
 
     public void setAvatar_large(String avatar_large) {
         this.avatar_large = avatar_large;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(url);
+        dest.writeString(title);
+        dest.writeString(title_alternative);
+        dest.writeInt(topics);
+        dest.writeInt(stars);
+        dest.writeString(header);
+        dest.writeString(footer);
+        dest.writeInt(created);
+        dest.writeString(avatar_mini);
+        dest.writeString(avatar_normal);
+        dest.writeString(avatar_large);
     }
 }

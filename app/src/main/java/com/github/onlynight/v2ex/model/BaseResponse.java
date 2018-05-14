@@ -1,6 +1,9 @@
 package com.github.onlynight.v2ex.model;
 
-public class BaseResponse {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class BaseResponse implements Parcelable {
     /**
      * status : error
      * message : Object Not Found
@@ -10,6 +13,26 @@ public class BaseResponse {
     private String status;
     private String message;
     private RateLimitBean rate_limit;
+
+    public BaseResponse() {
+    }
+
+    protected BaseResponse(Parcel in) {
+        status = in.readString();
+        message = in.readString();
+    }
+
+    public static final Creator<BaseResponse> CREATOR = new Creator<BaseResponse>() {
+        @Override
+        public BaseResponse createFromParcel(Parcel in) {
+            return new BaseResponse(in);
+        }
+
+        @Override
+        public BaseResponse[] newArray(int size) {
+            return new BaseResponse[size];
+        }
+    };
 
     public String getStatus() {
         return status;
@@ -33,6 +56,17 @@ public class BaseResponse {
 
     public void setRate_limit(RateLimitBean rate_limit) {
         this.rate_limit = rate_limit;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(status);
+        dest.writeString(message);
     }
 
     public static class RateLimitBean {

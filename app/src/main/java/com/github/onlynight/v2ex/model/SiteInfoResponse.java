@@ -1,6 +1,9 @@
 package com.github.onlynight.v2ex.model;
 
-public class SiteInfoResponse extends BaseResponse {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class SiteInfoResponse extends BaseResponse implements Parcelable {
 
     /**
      * title : V2EX
@@ -13,6 +16,28 @@ public class SiteInfoResponse extends BaseResponse {
     private String slogan;
     private String description;
     private String domain;
+
+    public SiteInfoResponse() {
+    }
+
+    protected SiteInfoResponse(Parcel in) {
+        title = in.readString();
+        slogan = in.readString();
+        description = in.readString();
+        domain = in.readString();
+    }
+
+    public static final Creator<SiteInfoResponse> CREATOR = new Creator<SiteInfoResponse>() {
+        @Override
+        public SiteInfoResponse createFromParcel(Parcel in) {
+            return new SiteInfoResponse(in);
+        }
+
+        @Override
+        public SiteInfoResponse[] newArray(int size) {
+            return new SiteInfoResponse[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -44,5 +69,18 @@ public class SiteInfoResponse extends BaseResponse {
 
     public void setDomain(String domain) {
         this.domain = domain;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(slogan);
+        dest.writeString(description);
+        dest.writeString(domain);
     }
 }

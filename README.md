@@ -6,3 +6,7 @@ V2EX unofficial android client, use the ```RxAndroid``` and ```retrofit``` and `
 # Preview
 
 ![home preview](./images/img_home.jpg)
+
+![topic preview](./images/img_topic_details.jpg)
+
+![topic reply preview](./images/img_topic_reply.jpg)

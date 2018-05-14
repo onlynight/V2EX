@@ -1,8 +1,11 @@
 package com.github.onlynight.v2ex.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.github.onlynight.v2ex.constants.Constants;
 
-public class TopicResponse extends BaseResponse {
+public class TopicResponse extends BaseResponse implements Parcelable {
     /**
      * id : 453608
      * title : 夏天来了，如何优雅的对付蚊子？
@@ -90,6 +93,35 @@ public class TopicResponse extends BaseResponse {
     private int created;
     private int last_modified;
     private int last_touched;
+
+    public TopicResponse() {
+    }
+
+    protected TopicResponse(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        url = in.readString();
+        content = in.readString();
+        content_rendered = in.readString();
+        replies = in.readInt();
+        member = in.readParcelable(MemberBean.class.getClassLoader());
+        node = in.readParcelable(NodeBean.class.getClassLoader());
+        created = in.readInt();
+        last_modified = in.readInt();
+        last_touched = in.readInt();
+    }
+
+    public static final Creator<TopicResponse> CREATOR = new Creator<TopicResponse>() {
+        @Override
+        public TopicResponse createFromParcel(Parcel in) {
+            return new TopicResponse(in);
+        }
+
+        @Override
+        public TopicResponse[] newArray(int size) {
+            return new TopicResponse[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -179,7 +211,27 @@ public class TopicResponse extends BaseResponse {
         this.last_touched = last_touched;
     }
 
-    public static class MemberBean {
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(title);
+        dest.writeString(url);
+        dest.writeString(content);
+        dest.writeString(content_rendered);
+        dest.writeInt(replies);
+        dest.writeParcelable(member, flags);
+        dest.writeParcelable(node, flags);
+        dest.writeInt(created);
+        dest.writeInt(last_modified);
+        dest.writeInt(last_touched);
+    }
+
+    public static class MemberBean implements Parcelable {
         /**
          * id : 254349
          * username : dobelee
@@ -195,6 +247,30 @@ public class TopicResponse extends BaseResponse {
         private String avatar_mini;
         private String avatar_normal;
         private String avatar_large;
+
+        public MemberBean() {
+        }
+
+        protected MemberBean(Parcel in) {
+            id = in.readInt();
+            username = in.readString();
+            tagline = in.readString();
+            avatar_mini = in.readString();
+            avatar_normal = in.readString();
+            avatar_large = in.readString();
+        }
+
+        public static final Creator<MemberBean> CREATOR = new Creator<MemberBean>() {
+            @Override
+            public MemberBean createFromParcel(Parcel in) {
+                return new MemberBean(in);
+            }
+
+            @Override
+            public MemberBean[] newArray(int size) {
+                return new MemberBean[size];
+            }
+        };
 
         public int getId() {
             return id;
@@ -252,9 +328,24 @@ public class TopicResponse extends BaseResponse {
         public void setAvatar_large(String avatar_large) {
             this.avatar_large = avatar_large;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(id);
+            dest.writeString(username);
+            dest.writeString(tagline);
+            dest.writeString(avatar_mini);
+            dest.writeString(avatar_normal);
+            dest.writeString(avatar_large);
+        }
     }
 
-    public static class NodeBean {
+    public static class NodeBean implements Parcelable {
         /**
          * id : 557
          * name : life
@@ -276,6 +367,33 @@ public class TopicResponse extends BaseResponse {
         private String avatar_mini;
         private String avatar_normal;
         private String avatar_large;
+
+        public NodeBean() {
+        }
+
+        protected NodeBean(Parcel in) {
+            id = in.readInt();
+            name = in.readString();
+            title = in.readString();
+            title_alternative = in.readString();
+            url = in.readString();
+            topics = in.readInt();
+            avatar_mini = in.readString();
+            avatar_normal = in.readString();
+            avatar_large = in.readString();
+        }
+
+        public static final Creator<NodeBean> CREATOR = new Creator<NodeBean>() {
+            @Override
+            public NodeBean createFromParcel(Parcel in) {
+                return new NodeBean(in);
+            }
+
+            @Override
+            public NodeBean[] newArray(int size) {
+                return new NodeBean[size];
+            }
+        };
 
         public int getId() {
             return id;
@@ -347,6 +465,24 @@ public class TopicResponse extends BaseResponse {
 
         public void setAvatar_large(String avatar_large) {
             this.avatar_large = avatar_large;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(id);
+            dest.writeString(name);
+            dest.writeString(title);
+            dest.writeString(title_alternative);
+            dest.writeString(url);
+            dest.writeInt(topics);
+            dest.writeString(avatar_mini);
+            dest.writeString(avatar_normal);
+            dest.writeString(avatar_large);
         }
     }
 }

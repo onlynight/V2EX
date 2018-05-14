@@ -10,4 +10,6 @@ public class Constants {
 
     public static final String HTTP_HEADER = "http:";
 
+    public static final String INTENT_KEY_PARAMS_TOPIC_LIST_ITEM = "topic_list_item";
+
 }
