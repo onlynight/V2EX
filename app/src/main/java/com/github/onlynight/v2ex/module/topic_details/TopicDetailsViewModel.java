@@ -2,11 +2,11 @@ package com.github.onlynight.v2ex.module.topic_details;
 
 import com.github.onlynight.rxmvvm.BaseViewModel;
 
-public class TopicDetailsViewModel extends BaseViewModel<TopicDetailsContract.View, TopicDetailsContract.Model> implements
+public class TopicDetailsViewModel extends BaseViewModel<TopicDetailsContract.Model> implements
         TopicDetailsContract.ViewModel {
 
-    public TopicDetailsViewModel(TopicDetailsContract.View view) {
-        super(view);
+    public TopicDetailsViewModel() {
+        super();
     }
 
     @Override

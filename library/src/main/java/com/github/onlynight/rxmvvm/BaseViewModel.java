@@ -8,27 +8,20 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.internal.functions.Functions;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.Subject;
 
-public abstract class BaseViewModel<View extends IView, Model extends IModel>
-        implements IViewModel<View, Model> {
+public abstract class BaseViewModel<Model extends IModel>
+        implements IViewModel<Model> {
 
-    protected View view;
     protected Model model;
     protected CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    public BaseViewModel(View view) {
-        this.view = view;
+    public BaseViewModel() {
         this.model = createModel();
     }
 
-    public BaseViewModel(View view, Model model) {
-        this.view = view;
+    public BaseViewModel(Model model) {
         this.model = model;
-    }
-
-    @Override
-    public void setView(View view) {
-        this.view = view;
     }
 
     @Override
@@ -39,19 +32,29 @@ public abstract class BaseViewModel<View extends IView, Model extends IModel>
     protected void onError(Throwable throwable) {
     }
 
-    protected <T> void bindData(Flowable<T> subject, Consumer<? super T> onNext) {
-        bindData(subject, onNext, this::onError);
+    protected <T> void bindData(Flowable<T> dataSource, Subject<T> subject) {
+        bindData(dataSource, subject::onNext, subject::onError, () -> {
+        });
     }
 
-    protected <T> void bindData(Flowable<T> subject, Consumer<? super T> onNext, Consumer<? super Throwable> onError) {
-        bindData(subject, onNext, onError, Functions.EMPTY_ACTION);
+    protected <T> void bindData(Flowable<T> dataSource, Consumer<? super T> onNext) {
+        bindData(dataSource, onNext, this::onError);
     }
 
-    protected <T> void bindData(Flowable<T> subject, Consumer<? super T> onNext, Consumer<? super Throwable> onError, Action onComplete) {
-        compositeDisposable.add(subject.
+    protected <T> void bindData(Flowable<T> dataSource, Consumer<? super T> onNext, Consumer<? super Throwable> onError) {
+        bindData(dataSource, onNext, onError, Functions.EMPTY_ACTION);
+    }
+
+    protected <T> void bindData(Flowable<T> dataSource, Consumer<? super T> onNext, Consumer<? super Throwable> onError, Action onComplete) {
+        compositeDisposable.add(dataSource.
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(onNext, onError, onComplete));
+    }
+
+    protected <T> void bindData(Observable<T> dataSource, Subject<T> subject) {
+        bindData(dataSource, subject::onNext, subject::onError, () -> {
+        });
     }
 
     protected <T> void bindData(Observable<T> subject, Consumer<? super T> onNext) {

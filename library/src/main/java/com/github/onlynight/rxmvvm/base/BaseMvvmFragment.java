@@ -9,14 +9,40 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.github.onlynight.rxmvvm.IView;
 import com.github.onlynight.rxmvvm.IViewModel;
 
-public abstract class BaseMvvmFragment<ViewModel extends IViewModel> extends Fragment implements IView {
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.internal.functions.Functions;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.Subject;
+
+public abstract class BaseMvvmFragment<ViewModel extends IViewModel> extends Fragment {
 
     protected ViewModel viewModel;
+    protected CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     protected abstract ViewModel createViewModel();
+
+    protected <T> void bindData(Subject<T> subject, Consumer<? super T> onNext) {
+        bindData(subject, onNext, this::commonError);
+    }
+
+    protected <T> void bindData(Subject<T> subject, Consumer<? super T> onNext, Consumer<? super Throwable> onError) {
+        bindData(subject, onNext, onError, Functions.EMPTY_ACTION);
+    }
+
+    protected <T> void bindData(Subject<T> subject, Consumer<? super T> onNext, Consumer<? super Throwable> onError, Action onComplete) {
+        compositeDisposable.add(subject.
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(onNext, onError, onComplete));
+    }
+
+    protected void commonError(Throwable throwable) {
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,8 +58,7 @@ public abstract class BaseMvvmFragment<ViewModel extends IViewModel> extends Fra
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    @Override
-    public void showMessage(String message) {
+    protected void showMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
@@ -65,6 +90,10 @@ public abstract class BaseMvvmFragment<ViewModel extends IViewModel> extends Fra
     public void onDestroy() {
         super.onDestroy();
         viewModel.onDestroy();
+        if (compositeDisposable != null) {
+            compositeDisposable.dispose();
+            compositeDisposable = null;
+        }
     }
 
     @Override

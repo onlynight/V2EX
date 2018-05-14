@@ -8,12 +8,11 @@ import com.github.onlynight.v2ex.R;
 import com.github.onlynight.v2ex.base.BaseActivity;
 import com.github.onlynight.v2ex.databinding.ActivityWelcomeBinding;
 
-public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, WelcomeViewModel>
-        implements WelcomeContract.View {
+public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, WelcomeViewModel> {
 
     @Override
     protected WelcomeViewModel createViewModel() {
-        return new WelcomeViewModel(this);
+        return new WelcomeViewModel();
     }
 
     @Override
@@ -25,12 +24,9 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                viewDataBinding.rippleLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-                        finish();
-                    }
+                viewDataBinding.rippleLayout.postDelayed(() -> {
+                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                    finish();
                 }, 500);
             }
 
@@ -42,7 +38,6 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
             public void onAnimationRepeat(Animator animation) {
             }
         });
-        viewModel.testFunction();
     }
 
     @Override
@@ -50,8 +45,4 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
         return R.layout.activity_welcome;
     }
 
-    @Override
-    public void testFunction(String args) {
-        System.out.println(args);
-    }
 }
