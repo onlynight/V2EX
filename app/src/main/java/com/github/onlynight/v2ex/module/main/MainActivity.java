@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     public void updateWebsiteInfo(SiteInfoResponse t) {
-        showMessage(t.getDescription());
+//        showMessage(t.getDescription());
     }
 
 }
