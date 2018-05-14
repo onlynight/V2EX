@@ -106,6 +106,7 @@ public class TopicDetailsAdapter extends LoadMoreRecyclerAdapter implements
             if (topic != null) {
                 viewDataBinding.textTitle.setText(topic.getTitle());
                 viewDataBinding.textContent.setText(topic.getContent());
+                viewDataBinding.textReplyNum.setText(String.valueOf(topic.getReplies()));
                 viewDataBinding.textTime.setText(new TimeBase(topic.getLast_modified()).getShowTime());
 
                 Glide.with(viewDataBinding.imgAvatar)
