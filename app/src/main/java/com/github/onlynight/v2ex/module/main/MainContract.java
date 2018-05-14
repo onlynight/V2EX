@@ -1,7 +1,6 @@
 package com.github.onlynight.v2ex.module.main;
 
 import com.github.onlynight.rxmvvm.IModel;
-import com.github.onlynight.rxmvvm.IView;
 import com.github.onlynight.rxmvvm.IViewModel;
 import com.github.onlynight.v2ex.model.NodeInfoResponse;
 import com.github.onlynight.v2ex.model.SiteInfoResponse;
@@ -12,12 +11,6 @@ import io.reactivex.Flowable;
 
 public interface MainContract {
 
-    interface View extends IView {
-
-        void updateWebsiteInfo(SiteInfoResponse t);
-
-    }
-
     interface Model extends IModel {
 
         Flowable<List<NodeInfoResponse>> getAllNode();
@@ -26,7 +19,7 @@ public interface MainContract {
 
     }
 
-    interface ViewModel extends IViewModel<View, Model> {
+    interface ViewModel extends IViewModel<Model> {
 
         void getAllNode();
 

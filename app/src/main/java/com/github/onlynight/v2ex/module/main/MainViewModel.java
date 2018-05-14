@@ -1,12 +1,17 @@
 package com.github.onlynight.v2ex.module.main;
 
 import com.github.onlynight.rxmvvm.BaseViewModel;
+import com.github.onlynight.v2ex.model.SiteInfoResponse;
 
-public class MainViewModel extends BaseViewModel<MainContract.View, MainContract.Model>
+import io.reactivex.subjects.PublishSubject;
+
+public class MainViewModel extends BaseViewModel<MainContract.Model>
         implements MainContract.ViewModel {
 
-    public MainViewModel(MainContract.View view) {
-        super(view);
+    private PublishSubject<SiteInfoResponse> updateWebsiteInfo;
+
+    public MainViewModel() {
+        updateWebsiteInfo = PublishSubject.create();
     }
 
     @Override
@@ -22,7 +27,11 @@ public class MainViewModel extends BaseViewModel<MainContract.View, MainContract
 
     @Override
     public void getWebsiteInfo() {
-        bindData(model.getWebsiteInfo(), view::updateWebsiteInfo);
+        bindData(model.getWebsiteInfo(), updateWebsiteInfo::onNext, updateWebsiteInfo::onError);
+    }
+
+    public PublishSubject<SiteInfoResponse> getUpdateWebsiteInfo() {
+        return updateWebsiteInfo;
     }
 
 }

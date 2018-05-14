@@ -6,13 +6,12 @@ import com.github.onlynight.v2ex.databinding.ActivityMainBinding;
 import com.github.onlynight.v2ex.model.SiteInfoResponse;
 import com.github.onlynight.v2ex.module.main.adapter.MainViewPagerAdapter;
 
-public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainContract.View {
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> {
 
     private MainViewPagerAdapter viewPagerAdapter;
 
     @Override
     protected void onBind(ActivityMainBinding viewDataBinding) {
-//        translucentTitleBar();
         viewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
         viewDataBinding.viewPager.setAdapter(viewPagerAdapter);
         viewDataBinding.viewPager.setOffscreenPageLimit(3);
@@ -20,6 +19,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         viewModel.getWebsiteInfo();
         viewModel.getAllNode();
+
+        bindData(viewModel.getUpdateWebsiteInfo(), this::updateWebsiteInfo);
     }
 
     @Override
@@ -29,11 +30,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     protected MainViewModel createViewModel() {
-        return new MainViewModel(this);
+        return new MainViewModel();
     }
 
-    @Override
     public void updateWebsiteInfo(SiteInfoResponse t) {
+        showMessage(t.getDescription());
     }
 
 }

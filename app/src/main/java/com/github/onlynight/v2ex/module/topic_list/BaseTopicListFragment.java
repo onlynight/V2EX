@@ -16,7 +16,6 @@ import com.github.onlynight.v2ex.view.combinerecyclerview.OnItemClickListener;
 import java.util.List;
 
 public class BaseTopicListFragment extends BaseFragment<FragmentTopicListBinding, TopicListViewModel> implements
-        TopicListContract.View,
         SwipeRefreshLayout.OnRefreshListener,
         OnItemClickListener<TopicResponse> {
 
@@ -41,7 +40,7 @@ public class BaseTopicListFragment extends BaseFragment<FragmentTopicListBinding
 
     @Override
     protected TopicListViewModel createViewModel() {
-        return new TopicListViewModel(this);
+        return new TopicListViewModel();
     }
 
     @Override
@@ -49,7 +48,6 @@ public class BaseTopicListFragment extends BaseFragment<FragmentTopicListBinding
         return "Topics";
     }
 
-    @Override
     public void updateTopics(List<TopicResponse> topics) {
         viewDataBinding.recyclerView.setRefreshing(false);
         adapter.setData(topics);

@@ -2,17 +2,22 @@ package com.github.onlynight.v2ex.module.topic_list;
 
 import com.github.onlynight.rxmvvm.BaseViewModel;
 import com.github.onlynight.v2ex.model.TopicResponse;
-import com.github.onlynight.v2ex.utils.LogUtils;
 
 import java.util.List;
 
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.reactivex.subjects.PublishSubject;
 
-public class TopicListViewModel extends BaseViewModel<TopicListContract.View,
-        TopicListContract.Model> implements TopicListContract.ViewModel {
+public class TopicListViewModel extends BaseViewModel<TopicListContract.Model> implements TopicListContract.ViewModel {
 
-    public TopicListViewModel(TopicListContract.View view) {
-        super(view);
+    private PublishSubject<List<TopicResponse>> updateLatestTopics;
+    private PublishSubject<List<TopicResponse>> updateHotTopics;
+
+    public TopicListViewModel() {
+        super();
+        updateLatestTopics = PublishSubject.create();
+        updateHotTopics = PublishSubject.create();
     }
 
     @Override
@@ -22,12 +27,20 @@ public class TopicListViewModel extends BaseViewModel<TopicListContract.View,
 
     @Override
     public void getLatestTopic() {
-        bindData(model.getLatestTopic(),view::updateTopics);
+        bindData(model.getLatestTopic(), updateLatestTopics);
     }
 
     @Override
     public void getHotTopic() {
-        bindData(model.getHotTopic(), view::updateTopics);
+        bindData(model.getHotTopic(), updateHotTopics);
+    }
+
+    public PublishSubject<List<TopicResponse>> getUpdateLatestTopics() {
+        return updateLatestTopics;
+    }
+
+    public PublishSubject<List<TopicResponse>> getUpdateHotTopics() {
+        return updateHotTopics;
     }
 
 }

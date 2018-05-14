@@ -4,8 +4,7 @@ import com.github.onlynight.v2ex.R;
 import com.github.onlynight.v2ex.base.BaseActivity;
 import com.github.onlynight.v2ex.databinding.ActivityTopicDetailsBinding;
 
-public class TopicDetailsActivity extends BaseActivity<ActivityTopicDetailsBinding, TopicDetailsViewModel>
-        implements TopicDetailsContract.View {
+public class TopicDetailsActivity extends BaseActivity<ActivityTopicDetailsBinding, TopicDetailsViewModel> {
 
     @Override
     protected void onBind(ActivityTopicDetailsBinding viewDataBinding) {
@@ -18,7 +17,7 @@ public class TopicDetailsActivity extends BaseActivity<ActivityTopicDetailsBindi
 
     @Override
     protected TopicDetailsViewModel createViewModel() {
-        return new TopicDetailsViewModel(this);
+        return new TopicDetailsViewModel();
     }
 
 }
