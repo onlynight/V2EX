@@ -5,6 +5,10 @@ V2EX unofficial android client, use the ```RxAndroid``` and ```retrofit``` and `
 
 # Preview
 
+## Apk Download
+
+You can download and install into your phone to experience the app here. [!apk download](./apks/v2ex-demo-1.0.apk)
+
 ## Home Preview
 
 ![home preview](./images/img_home.jpg)
